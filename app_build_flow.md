@@ -49,3 +49,9 @@ post lists will only be responsible for displaying the given posts
 more reusable for if we wanna display lists of post realted to user not thread
 
 # feature: add new post
+
+
+# bulid forum page
+route configuration
+UI composition
+prepare our data for this page

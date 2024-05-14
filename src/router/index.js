@@ -3,6 +3,7 @@ import PageThreadShow from '@/pages/PageThreadShow.vue'
 import PageHome from '@/pages/PageHome.vue'
 import PageNotFound from '@/pages/PageNotFound.vue'
 import sourceData from '@/data.json'
+import Forum from '@/pages/Forum.vue'
 
 const routes = [
   {
@@ -37,6 +38,12 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: PageNotFound
+  },
+  {
+    path: '/forum/:id',
+    name: 'Forum',
+    component: Forum,
+    props: true
   }
 ]
 
