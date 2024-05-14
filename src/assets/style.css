@@ -2525,3 +2525,43 @@ hr {
   background: #f5f8fe;
   min-height: 100vh;
 }
+
+
+.form-actions, .btn-group {
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form-actions > *:not(:last-child), .btn-group > *:not(:last-child) {
+  margin-right: 10px;
+}
+
+@media (min-width: 240px) and (max-width: 720px) {
+  .form-actions, .btn-group {
+      flex-wrap: wrap;
+  }
+
+  .form-actions > *:not(.btn-ghost), .btn-group > *:not(.btn-ghost) {
+      flex: 1 1;
+      margin-bottom: 5px;
+  }
+}
+
+.form-group {
+  margin-bottom: 12px;
+  width: 100%;
+  display: inline-block;
+}
+
+.form-label, .form-group > label {
+  margin-bottom: 5px;
+  display: inline-block;
+  color: #767676;
+}
+
+.form-label-password, .form-group > label-password {
+  margin-bottom: 0px;
+}

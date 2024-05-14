@@ -18,26 +18,17 @@
       >
     </p> -->
     <post-list :posts="threadPosts"/>
-    <div class="col-full">
-      <form @submit.prevent="addPost">
-        <div class="form-group">
-          <!-- <textarea :value="newPost" v-on:input="newPost = $event.target.value" id="" cols="30" rows="10"></textarea> -->
-          <textarea v-model="newPostText"/>
-        </div>
-        <div class="form-actions">
-          <button></button>
-        </div>
-      </form>
-    </div>
+    <post-editor @save-post="addPost"/>
   </div>
 </template>
-
 <script>
 import PostList from '@/components/PostList.vue'
 import sourceData from '@/data.json'
+import PostEditor from '@/components/PostEditor.vue'
 export default {
   components: {
-    PostList
+    PostList,
+    PostEditor
   },
   props: {
     id: {
@@ -48,8 +39,8 @@ export default {
   data() {
     return {
       threads: sourceData.threads,
-      posts: sourceData.posts,
-      newPostText: ''
+      posts: sourceData.posts
+
     }
   },
   computed: {
@@ -61,19 +52,15 @@ export default {
     }
   },
   methods: {
-    addPost() {
-      const newPostId = crypto.randomUUID()
+    addPost(eventPlayload) {
+      console.log(eventPlayload)
       const newPost = {
-        text: this.newPostText,
-        id: newPostId,
-        publishedAt: Math.floor(new Date() / 1000),
-        threadId: this.id,
-        userId: '38St7Q8Zi2N1SPa5ahzssq9kbyp1'
+        ...eventPlayload.newPost,
+        threadId: this.id
       }
-
+      console.log(newPost)
       this.posts.push(newPost)
-      this.threads.posts.push(newPostId)
-      this.newPostText = ''
+      this.thread.posts.push(newPost.id)
     }
   }
 }
