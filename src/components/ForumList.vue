@@ -28,13 +28,7 @@
 </template>
 
 <script>
-// import sourceData from '@/data.json'
 export default {
-  // computed:{
-  //   forums(){
-  //     return sourceData.forums.filter()
-  //   }
-  // }
   props: {
     forums: {
       required: true,

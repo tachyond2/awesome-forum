@@ -23,7 +23,6 @@
 </template>
 <script>
 import PostList from '@/components/PostList.vue'
-import sourceData from '@/data.json'
 import PostEditor from '@/components/PostEditor.vue'
 export default {
   components: {
@@ -36,19 +35,18 @@ export default {
       type: String
     }
   },
-  data() {
-    return {
-      threads: sourceData.threads,
-      posts: sourceData.posts
-
-    }
-  },
   computed: {
+    // threads() {
+    //   return this.$store.state.threads
+    // },
+    // posts () {
+    //   return this.$store.state.posts
+    // },
     thread() {
-      return this.threads.find(thread => thread.id === this.id)
+      return this.$store.state.threads.find(thread => thread.id === this.id)
     },
     threadPosts() {
-      return this.posts.filter(p => p.threadId === this.id)
+      return this.$store.state.posts.filter(p => p.threadId === this.id)
     }
   },
   methods: {

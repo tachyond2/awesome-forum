@@ -16,5 +16,4 @@ requireComponent.keys().forEach(function(fileName) {
   forumApp.component(baseComponentName, baseComponentConfig)
 })
 
-
 forumApp.use(router).use(store).mount('#app')
