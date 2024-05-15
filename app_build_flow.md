@@ -55,3 +55,4 @@ more reusable for if we wanna display lists of post realted to user not thread
 route configuration
 UI composition
 prepare our data for this page
+caller side(consumer) use -> pass ->recevie->implement(producer) user
