@@ -63,6 +63,11 @@ const routes = [
     name: 'ProfileEdit',
     component: PageProfile,
     props: { edit: true }
+  },
+  {
+    path: '/profile/me',
+    name: 'Profile',
+    component: PageProfile
   }
 ]
 
