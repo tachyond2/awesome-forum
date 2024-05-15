@@ -56,9 +56,8 @@ export default {
         ...eventPlayload.newPost,
         threadId: this.id
       }
-      console.log(newPost)
-      this.posts.push(newPost)
-      this.thread.posts.push(newPost.id)
+      // console.log(newPost)
+      this.$store.dispatch('createPost', newPost)
     }
   }
 }
