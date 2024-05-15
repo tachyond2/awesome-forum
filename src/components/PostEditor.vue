@@ -3,10 +3,10 @@
     <form @submit.prevent="save">
       <div class="form-group">
         <!-- <textarea :value="newPost" v-on:input="newPost = $event.target.value" id="" cols="30" rows="10"></textarea> -->
-        <textarea v-model="text"/>
+        <textarea v-model="text" rows="10" cols="30" rules="required"/>
       </div>
-      <div class="cc-actions">
-        <button>submit</button>
+      <div class="from-actions">
+        <button class="btn-blue">submit</button>
       </div>
     </form>
   </div>
@@ -22,12 +22,8 @@ export default {
   },
   methods: {
     save() {
-      const newPostId = crypto.randomUUID()
       const newPost = {
-        text: this.text,
-        id: newPostId,
-        publishedAt: Math.floor(new Date() / 1000),
-        userId: '38St7Q8Zi2N1SPa5ahzssq9kbyp1'
+        text: this.text
       }
       this.$emit('save-post', { newPost })
       // do in parent compoenent
@@ -38,7 +34,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

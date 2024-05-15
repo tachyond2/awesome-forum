@@ -21,18 +21,18 @@ npm run lint
 ```
 
 
-# add angular JS commit message format
+# better commit message format
 
 ```
 <type>(<scope>): <short summary>
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │       │
-  │       └─⫸ Commit Scope: common|compiler|compiler-cli|core|
-  │                          elements|forms|http|language|localize||
-  │                          platform|platform-server|router|service-worker|
-  │                          upgrade||packaging|changelog|docs|migrations||ve|
-  │                          devtools
+  │       └─⫸ Commit Scope: categories | forums | threads | posts | user_profile |
+  │                          
+  │                          
+  │                          
+  │                          
   │
   └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test|chore|wip(work in progress)|revert
 ```
