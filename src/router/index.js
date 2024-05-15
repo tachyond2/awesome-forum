@@ -48,30 +48,32 @@ const routes = [
     props: true
   },
   {
+    path: '/profile/me',
+    name: 'Profile',
+    component: PageProfile,
+    meta: { toTop: true, smoothScroll: 'true' }
+  },
+  {
     path: '/category/:id',
     name: 'Category',
     component: PageCategory,
     props: true
   },
   {
-    path: '/profile/me',
-    name: 'Profile',
-    component: PageProfile
-  },
-  {
     path: '/profile/me/edit',
     name: 'ProfileEdit',
     component: PageProfile,
     props: { edit: true }
-  },
-  {
-    path: '/profile/me',
-    name: 'Profile',
-    component: PageProfile
   }
 ]
 
 export default createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior(to) {
+    const scoll = {}
+    if (to.meta.toTop) scoll.top = 0
+    if (to.meta.smoothScroll) scoll.behavior = 'smooth'
+    return scoll
+  }
 })
