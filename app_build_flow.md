@@ -56,3 +56,4 @@ route configuration
 UI composition
 prepare our data for this page
 caller side(consumer) use -> pass ->recevie->implement(producer) user
+replace static html with data in data source
