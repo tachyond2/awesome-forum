@@ -8,7 +8,21 @@ export default createStore({
   },
   getters: {
     // map authId to auth usr prepare everywhere we need to access auth user
-    authUser: state => state.users.find(u => u.id === state.authId)
+    authUser: state => {
+      const user = state.users.find(u => u.id === state.authId)
+      return {
+        ...user,
+        get posts() {
+          return state.posts.filter(p => p.userId === user.id)
+        },
+        get postCount() {
+          return this.posts.length
+        },
+        get threads() {
+          return state.threads.filter(t => t.userId === user.id)
+        }
+      }
+    }
   },
   actions: {
     createPost(context, post) {
