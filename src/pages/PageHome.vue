@@ -1,21 +1,20 @@
 <template>
   <h1>Welocome to forum!</h1>
-  <forum-list :forums="catergoryForums"/>
+  <category-list :categories="categories"/>
 </template>
 
 <script>
 import sourceData from '@/data.json'
-import ForumList from '@/components/ForumList'
+import CategoryList from '@/components/CategoryList'
 export default {
   components: {
-    ForumList
+    CategoryList
   },
-  computed: {
-    catergoryForums() {
-      return sourceData.forums.filter(f => f.categoryId === '-KpR7vRkiRPpbUd_TVAR')
+  data() {
+    return {
+      categories: sourceData.categories
     }
   }
-
 }
 </script>
 

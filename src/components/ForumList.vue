@@ -2,7 +2,7 @@
   <div class="col-full">
     <div class="forum-list">
       <h2 class="list-title">
-          <a href="category.html">Feedback &amp; Information</a>
+          <a href="category.html">{{categoryName}}</a>
       </h2>
       <div class="forum-listing" v-for="forum in forums" :key="forum.id">
           <div class="forum-details">
@@ -39,6 +39,10 @@ export default {
     forums: {
       required: true,
       type: Array
+    },
+    categoryName: {
+      rquired: true,
+      type: String
     }
   },
   methods: {
