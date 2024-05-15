@@ -5,6 +5,7 @@ import PageNotFound from '@/pages/PageNotFound.vue'
 import sourceData from '@/data.json'
 import Forum from '@/pages/Forum.vue'
 import PageCategory from '@/pages/PageCategory.vue'
+import PageProfile from '@/pages/PageProfile.vue'
 
 const routes = [
   {
@@ -51,6 +52,11 @@ const routes = [
     name: 'Category',
     component: PageCategory,
     props: true
+  },
+  {
+    path: '/profile/me',
+    name: 'Profile',
+    component: PageProfile
   }
 ]
 
