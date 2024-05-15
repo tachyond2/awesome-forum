@@ -15,11 +15,14 @@ export default createStore({
         get posts() {
           return state.posts.filter(p => p.userId === user.id)
         },
-        get postCount() {
+        get postsCount() {
           return this.posts.length
         },
         get threads() {
           return state.threads.filter(t => t.userId === user.id)
+        },
+        get threadsCount() {
+          return this.threads.length
         }
       }
     }
@@ -28,11 +31,18 @@ export default createStore({
     createPost(context, post) {
       context.commit('setPost', { post })
       context.commit('appendPostToThread', { threadId: post.threadId, postId: post.id })
+    },
+    updateUser({ commit, state }, user) {
+      commit('setUser', { user, userId: user.id })
     }
   },
   mutations: {
     setPost(state, { post }) {
       state.posts.push(post)
+    },
+    setUser(state, { user, userId }) {
+      const userIndex = state.users.findIndex(u => u.id === userId)
+      state.users[userIndex] = user
     },
     appendPostToThread(state, { threadId, postId }) {
       const thread = state.threads.find(t => t.id === threadId)
