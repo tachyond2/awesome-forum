@@ -1,6 +1,12 @@
 # vue-forum
 
 ## Project setup
+### snapshot
+![alt text](./images/vue-forum-1.png) 
+
+![alt text](./images/vue-forum-2.png)
+
+
 ```
 npm install
 ```
@@ -37,5 +43,4 @@ npm run lint
   └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test|chore|wip(work in progress)|revert
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+

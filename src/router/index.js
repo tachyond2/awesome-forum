@@ -38,6 +38,12 @@ const routes = [
     }
   },
   {
+    path: '/forum/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: ThreadCreate,
+    props: true
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: PageNotFound
@@ -65,12 +71,6 @@ const routes = [
     name: 'ProfileEdit',
     component: PageProfile,
     props: { edit: true }
-  },
-  {
-    path: '/forum/:forumId/thread/create',
-    name: 'ThreadCreate',
-    component: ThreadCreate,
-    props: true
   }
 ]
 
