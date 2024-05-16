@@ -46,27 +46,52 @@ export default createStore({
         title,
         userId: state.authId
       }
-      commit('addThread', thread)
+      commit('setThread', thread)
       dispatch('createPost', { threadId: id, text })
       commit('appendThreadToForum', { forumId, threadId: id })
       commit('appendThreadToUser', { userId: state.authId, threadId: id })
 
       return thread
     },
+    async updateThread({ commit, state }, { title, text, id }) {
+      // find the old thread  and post in state
+      const thread = state.threads.find(thread => thread.id === id)
+      const post = state.posts.find(post => post.id === thread.posts[0])
+      // consturct the new thread and post
+      const newThread = { ...thread, title }
+      const newPost = { ...post, text }
+      // commit the setThread and setPost
+      console.log(newThread, newPost)
+      commit('setPost', newPost)
+      commit('setThread', newThread)
+    },
     updateUser({ commit, state }, user) {
       commit('setUser', { user, userId: user.id })
     }
   },
   mutations: {
-    setPost(state, { post }) {
-      state.posts.push(post)
+    setPost(state, post) {
+      const postIndex = state.posts.findIndex(p => p.id === post.id)
+      // if post already exist
+      if (postIndex !== -1) {
+        state.posts[postIndex] = post
+      } else {
+        state.posts.push(post)
+      }
     },
     setUser(state, { user, userId }) {
       const userIndex = state.users.findIndex(u => u.id === userId)
       state.users[userIndex] = user
     },
-    addThread(state, thread) {
-      state.threads.push(thread)
+    setThread(state, thread) {
+      const threadIndex = state.threads.findIndex(t => t.id === thread.id)
+
+      // if post already exist
+      if (threadIndex !== -1) {
+        state.threads[threadIndex] = thread
+      } else {
+        state.threads.push(thread)
+      }
     },
     appendThreadToForum(state, { forumId, threadId }) {
       const forum = state.forums.find(f => f.id === forumId)

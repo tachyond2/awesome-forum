@@ -7,6 +7,7 @@ import Forum from '@/pages/Forum.vue'
 import PageCategory from '@/pages/PageCategory.vue'
 import PageProfile from '@/pages/PageProfile.vue'
 import ThreadCreate from '@/pages/ThreadCreate.vue'
+import ThreadEdit from '@/pages/ThreadEdit.vue'
 
 const routes = [
   {
@@ -41,6 +42,12 @@ const routes = [
     path: '/forum/:forumId/thread/create',
     name: 'ThreadCreate',
     component: ThreadCreate,
+    props: true
+  },
+  {
+    path: '/thread/:threadId/edit',
+    name: 'ThreadEdit',
+    component: ThreadEdit,
     props: true
   },
   {

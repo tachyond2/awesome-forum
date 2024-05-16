@@ -7,7 +7,11 @@
       <li><a href="category.html">Discussions</a></li>
       <li class="active"><a href="#">Cooking</a></li>
     </ul> -->
-    <h1>{{ thread.title }}</h1>
+    <h1>{{ thread.title }}
+      <router-link :to="{ name: 'ThreadEdit', params: { threadId: id}}"  >
+        <button class="btn btn-green">Edit THread</button></router-link>
+
+    </h1>
 
     <!-- <p>
       By <a href="#" class="link-unstyled">Robin</a>, 2 hours ago.
