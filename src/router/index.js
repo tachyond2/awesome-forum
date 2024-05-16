@@ -6,6 +6,7 @@ import sourceData from '@/data.json'
 import Forum from '@/pages/Forum.vue'
 import PageCategory from '@/pages/PageCategory.vue'
 import PageProfile from '@/pages/PageProfile.vue'
+import ThreadCreate from '@/pages/ThreadCreate.vue'
 
 const routes = [
   {
@@ -64,6 +65,12 @@ const routes = [
     name: 'ProfileEdit',
     component: PageProfile,
     props: { edit: true }
+  },
+  {
+    path: '/forum/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: ThreadCreate,
+    props: true
   }
 ]
 
