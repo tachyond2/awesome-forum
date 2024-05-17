@@ -57,3 +57,6 @@ UI composition
 prepare our data for this page
 caller side(consumer) use -> pass ->recevie->implement(producer) user
 replace static html with data in data source
+
+# in ThreadShow page
+UI: who and when create the thread, reply count, contributor count

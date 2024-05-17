@@ -10,9 +10,8 @@
     </ul> -->
     <h1>{{ thread.title }}
       <router-link :to="{ name: 'ThreadEdit', params: { threadId: id}}"  >
-        <button class="btn btn-green">Edit THread</button></router-link>
-
-    </h1>
+        <button class="btn-small btn-green">Edit THread</button></router-link>
+      </h1>
 
     <!-- <p>
       By <a href="#" class="link-unstyled">Robin</a>, 2 hours ago.
@@ -22,6 +21,10 @@
         >3 replies by 3 contributors</span
       >
     </p> -->
+    <p>
+      By <a href="#" class="link-unstyled">{{thread.author.name}}</a>,  <AppDate :timestamp="thread.publishedAt" />.
+      <span style="float:right;" class="text-faded">{{ thread.repliesCount }} replies by {{ thread.contributorsCount }} contributors</span>
+    </p>
     <post-list :posts="threadPosts"/>
     <post-editor @save-post="addPost"/>
   </div>
@@ -48,7 +51,8 @@ export default {
     //   return this.$store.state.posts
     // },
     thread() {
-      return this.$store.state.threads.find(thread => thread.id === this.id)
+      // return this.$store.state.threads.find(thread => thread.id === this.id)
+      return this.$store.getters.thread(this.id)
     },
     threadPosts() {
       return this.$store.state.posts.filter(p => p.threadId === this.id)

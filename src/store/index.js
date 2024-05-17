@@ -27,6 +27,23 @@ export default createStore({
           return this.threads.length
         }
       }
+    },
+    thread: state => {
+      return (id) => {
+        const thread = findById(state.threads, id)
+        return {
+          ...thread,
+          get author() {
+            return findById(state.users, thread.userId)
+          },
+          get repliesCount() {
+            return thread.posts.length - 1
+          },
+          get contributorsCount() {
+            return thread.contributors.length
+          }
+        }
+      }
     }
   },
   actions: {
@@ -36,6 +53,7 @@ export default createStore({
       post.publishedAt = Math.floor(Date.now() / 1000)
       commit('setPost', { post })
       commit('appendPostToThread', { parentId: post.threadId, childId: post.id })
+      // commit('appendContributorToThread', { parentId: post.threadId, childId: state.authId })
     },
     async createThread({ commit, state, dispatch }, { title, text, forumId }) {
       // conssturct the thread object
@@ -51,7 +69,7 @@ export default createStore({
       commit('setThread', thread)
       dispatch('createPost', { threadId: threadId, text })
       commit('appendThreadToForum', { parentId: forumId, childId: threadId })
-      commit('appendThreadToUser', { userId: state.authId, childId: threadId })
+      commit('appendThreadToUser', { parentId: state.authId, childId: threadId })
 
       return thread
     },
@@ -72,7 +90,7 @@ export default createStore({
     }
   },
   mutations: {
-    setPost(state, post) {
+    setPost(state, { post }) {
       console.log(post)
       upsert(state.posts, post)
     },
@@ -98,7 +116,8 @@ export default createStore({
     //   thread.posts = thread.posts || []
     //   thread.posts.push(postId)
     // }
-    appendPostToThread: appendChildToParent('posts', 'threads')
+    appendPostToThread: appendChildToParent({ parent: 'threads', child: 'posts' }),
+    appendContributorToThread: appendChildToParent({ parent: 'threads', child: 'contributors' })
   }
 })
 
@@ -107,6 +126,9 @@ function appendChildToParent({ child, parent }) {
     // const thread = findById(state.threads, threadId)
     const resource = findById(state[parent], parentId)
     resource[child] = resource[child] || []
-    resource[child].push(childId)
+    // add child to paren resource only if the child id doesn't already exist
+    if (!resource[child].includes(childId)) {
+      resource[child].push(childId)
+    }
   }
 }
