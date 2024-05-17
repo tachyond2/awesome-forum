@@ -3,7 +3,6 @@ import { createStore } from 'vuex'
 import sourceData from '@/data.json'
 
 import { findById, upsert } from '@/helpers'
-
 export default createStore({
   state: {
     ...sourceData,
@@ -36,23 +35,23 @@ export default createStore({
       post.id = crypto.randomUUID()
       post.publishedAt = Math.floor(Date.now() / 1000)
       commit('setPost', { post })
-      commit('appendPostToThread', { threadId: post.threadId, postId: post.id })
+      commit('appendPostToThread', { parentId: post.threadId, childId: post.id })
     },
     async createThread({ commit, state, dispatch }, { title, text, forumId }) {
       // conssturct the thread object
       const publishedAt = Math.floor(Date.now() / 1000)
-      const id = crypto.randomUUID()
+      const threadId = crypto.randomUUID()
       const thread = {
-        id,
+        threadId,
         forumId,
         publishedAt,
         title,
         userId: state.authId
       }
       commit('setThread', thread)
-      dispatch('createPost', { threadId: id, text })
-      commit('appendThreadToForum', { forumId, threadId: id })
-      commit('appendThreadToUser', { userId: state.authId, threadId: id })
+      dispatch('createPost', { threadId: threadId, text })
+      commit('appendThreadToForum', { parentId: forumId, childId: threadId })
+      commit('appendThreadToUser', { userId: state.authId, childId: threadId })
 
       return thread
     },
@@ -73,11 +72,11 @@ export default createStore({
     }
   },
   mutations: {
-    setPost(state, { post }) {
+    setPost(state, post) {
+      console.log(post)
       upsert(state.posts, post)
-      console.log(state.posts)
     },
-    setUser(state, { user, userId }) {
+    setUser(state, { user }) {
       upsert(state.users, user)
     },
     setThread(state, thread) {
@@ -90,22 +89,24 @@ export default createStore({
         state.threads.push(thread)
       }
     },
-    appendThreadToForum(state, { forumId, threadId }) {
-      const forum = findById(state.forums, forumId)
-      forum.threads = forum.threads || [] // thread might be the first thread in the forum
-      forum.threads.push(threadId)
-    },
-    appendThreadToUser(state, { userId, threadId }) {
-      const user = findById(state.users, userId)
-      user.threads = user.threads || [] // thread might be the frist thread use has been written
-      user.threads.push(threadId)
-    },
-    appendPostToThread(state, { threadId, postId }) {
-      console.log(threadId, postId)
-      // const thread = findById(state.threads, threadId)
-      const thread = state.threads.find(r => r.id === threadId)
-      thread.posts = thread.posts || []
-      thread.posts.push(postId)
-    }
+    appendThreadToForum: appendChildToParent({ parent: 'forums', child: 'threads' }),
+    // appendPostToThread(state, { threadId, postId }) {
+    appendThreadToUser: appendChildToParent({ parent: 'threads', child: 'users' }),
+    //   console.log(threadId, postId)
+    //   // const thread = findById(state.threads, threadId)
+    //   const thread = state.threads.find(r => r.id === threadId)
+    //   thread.posts = thread.posts || []
+    //   thread.posts.push(postId)
+    // }
+    appendPostToThread: appendChildToParent('posts', 'threads')
   }
 })
+
+function appendChildToParent({ child, parent }) {
+  return (state, { parentId, childId }) => {
+    // const thread = findById(state.threads, threadId)
+    const resource = findById(state[parent], parentId)
+    resource[child] = resource[child] || []
+    resource[child].push(childId)
+  }
+}
